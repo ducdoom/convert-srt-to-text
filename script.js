@@ -52,3 +52,11 @@ chung cư à. Chiếc camera nhỏ bé này
 
     $("#txt-output").val(output);
 }
+
+function convertHtmlToText(){
+    var input = $("#txt-input").val();
+    var output = $("#txt-output").val();
+    //parse html from input
+    var html = $.parseHTML(input);
+    
+}
