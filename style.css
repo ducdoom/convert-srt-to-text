@@ -5,7 +5,7 @@
 }
 
 .left-side-bar{
-    width: 200px; 
+    max-width: 200px; 
     background-color: #e6e1fa;
     width: 100vw;
     height: 100vh;
@@ -15,5 +15,6 @@
 .section-container{
     width: 100vw;
     height: 100vh;
-    background-color: chartreuse;
+    background-color: rgb(214, 241, 186);
 }
+
