@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 function addEventListeners() {
-    $("#btn-convert").click(function () { convertSrtToText(); });
+    $("#btn-convert").click(function () { convertHtmlToText(); });
 
 }
 
@@ -34,7 +34,7 @@ chung cư à. Chiếc camera nhỏ bé này
 
         //remove if line is a number and next line is a timestamp
         if (lines[i].trim().match(/^\d+$/) && lines[i + 1].trim().match(/^\d\d:\d\d:\d\d,\d\d\d --> \d\d:\d\d:\d\d,\d\d\d$/)) continue;
-        
+
         //remove if line is a timestamp
         if (lines[i].trim().match(/^\d\d:\d\d:\d\d,\d\d\d --> \d\d:\d\d:\d\d,\d\d\d$/)) continue;
 
@@ -47,16 +47,40 @@ chung cư à. Chiếc camera nhỏ bé này
 
     //add break line after each period for each sentence
     concatString = concatString.replace(/\. /g, '.\n');
-    
+
     output = concatString;
 
     $("#txt-output").val(output);
 }
 
-function convertHtmlToText(){
+function convertHtmlToText() {
+    // alert("convertHtmlToText");
     var input = $("#txt-input").val();
-    var output = $("#txt-output").val();
-    //parse html from input
+    var output = $("#txt-output");
+    //parse html from input then select div with id "action"
+
     var html = $.parseHTML(input);
-    
+    //find section with class "subtitle-list-item"
+    var sectioinCollection = $(html).find(".subtitle-list-item");
+    let textSrt = "";
+
+    for (let i = 0; i < sectioinCollection.length; i++) {
+        let section = sectioinCollection[i];
+
+        let time = getTimeFromSection(section);
+        let text = getTextFromSection(section);
+        textSrt += time + "   " + text + "\n";
+
+    }
+
+    output.val(textSrt);
+
+}
+
+function getTimeFromSection(section) {
+    return $(section).find(".time").text();
+}
+
+function getTextFromSection(section) {
+    return $(section).find("div.textarea-fake").text();
 }
